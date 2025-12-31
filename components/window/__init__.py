@@ -1,0 +1,1 @@
+from components.window.MainWindow import MainWindow
