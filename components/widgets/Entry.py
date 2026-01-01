@@ -5,7 +5,7 @@ from functools import reduce
 from util.qtHelpers import getEntryWidth
 
 class Entry(QLineEdit):
-    def __init__(self, placeholder: str = "", autocomplete: list[str] = [], maxLength: int = 25):
+    def __init__(self, placeholder: str = "", autocomplete: list[str] = [], maxLength: int = 20):
         super().__init__()
         self.onFocusOut = lambda: None
         self.initialMaxLength = maxLength

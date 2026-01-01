@@ -17,12 +17,12 @@ class CommCell(QWidget):
         layout.addWidget(QLabel(label), 0, 0)
 
         # Name
-        self.name = Entry('Name', commentators.keys())
+        self.name = Entry('Name', commentators.keys(), 25)
         self.name.setOnFocusOut(self.autofillComms)
         layout.addWidget(self.name, 0, 1)
 
         # Plug / Handle
-        self.plug = Entry('Plug/Handle')
+        self.plug = Entry('Plug/Handle', [], 25)
         self.plug.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.plug, 0, 2)
 

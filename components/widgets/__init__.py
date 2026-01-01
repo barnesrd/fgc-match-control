@@ -6,3 +6,5 @@ from components.widgets.CommCell import CommCell
 from components.widgets.MatchCell import MatchCell
 from components.widgets.IntCounter import IntCounter
 from components.widgets.StatusBar import StatusBar
+from components.widgets.CrewTeam import CrewTeam
+from components.widgets.CrewPlayer import CrewPlayer

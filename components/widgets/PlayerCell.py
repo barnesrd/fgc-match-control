@@ -20,7 +20,7 @@ class PlayerCell(QWidget):
         )
 
         # Name Entry
-        self.name = Entry('Name', self.players.keys())
+        self.name = Entry('Name', self.players.keys(), 25)
         self.name.setOnFocusOut(self.autofillPlayer)
         self.name.setToolTip("Player's name")
         layout.addWidget(self.name, 0, 1)
