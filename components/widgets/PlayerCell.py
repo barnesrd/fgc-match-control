@@ -1,14 +1,16 @@
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
 from components.widgets.Entry import Entry
 from data.countries import countries
 from components.widgets.IntCounter import IntCounter
 
 class PlayerCell(QWidget):
-    def __init__(self, label: str, players: dict, characters: dict):
+    def __init__(self, label: str, players: dict, characters: dict, submitFunc: callable, editSubmitToggle: QCheckBox):
         super().__init__()
         self.players = players
         self.characters = characters
+        self.submitFunc = submitFunc
+        self.editSubmitToggle = editSubmitToggle
 
         layout = QGridLayout()
         layout.setContentsMargins(2, 2, 2, 2)
@@ -26,14 +28,16 @@ class PlayerCell(QWidget):
         # Character Entry
         self.character = Entry('Character', self.characters.keys(), 2)
         self.character.setToolTip("Player's character")
+        self.character.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.character, 0, 2)
 
         # Country Entry
         self.country = Entry('Country', countries.keys(), 2)
         self.country.setToolTip("Player's country")
+        self.country.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.country, 0, 3)
 
-        self.counter = IntCounter(0, 99)
+        self.counter = IntCounter(0, 99, 0, submitFunc, editSubmitToggle)
         self.counter.setToolTip("Player's score (Affects scoreboard)")
         layout.addWidget(self.counter, 0, 4)
 
@@ -63,12 +67,16 @@ class PlayerCell(QWidget):
         self.character.setText(character)
         self.country.setText(country)
 
+    def trySubmit(self):
+        if self.editSubmitToggle.isChecked():
+            self.submitFunc()
+
     def autofillPlayer(self):
         player = self.players.get(self.name.text())
-        if player is None:
-            return
-        self.character.setText(player.get('char', ''))
-        self.country.setText(player.get('ctry', ''))
+        if player is not None:
+            self.character.setText(player.get('char', ''))
+            self.country.setText(player.get('ctry', ''))
+        self.trySubmit()
 
     def clear(self):
         self.name.setText('')

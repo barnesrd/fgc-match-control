@@ -13,6 +13,8 @@ class PlayerTab(QWidget):
         self.statusBar = statusBar
         layout = QGridLayout()
 
+        self.editSaveToggle = QCheckBox('Save on edit')
+
         # Player Entry
         layout.addWidget(QLabel('<b><i>Player Data</i></b>'), 0, 0, 1, 2)
 
@@ -32,8 +34,20 @@ class PlayerTab(QWidget):
 
         layout.addLayout(playerButtonLayout, 0, 2, 1, 2)
 
-        self.p1 = PlayerCell('Player 1:', profile.get('players', {}), theme.get('characters', {}))
-        self.p2 = PlayerCell('Player 2:', profile.get('players', {}), theme.get('characters', {}))
+        self.p1 = PlayerCell(
+            'Player 1:',
+            profile.get('players', {}),
+            theme.get('characters', {}),
+            self.submit,
+            self.editSaveToggle
+        )
+        self.p2 = PlayerCell(
+            'Player 2:',
+            profile.get('players', {}),
+            theme.get('characters', {}),
+            self.submit,
+            self.editSaveToggle
+        )
 
         layout.addWidget(self.p1, 1, 0, 1, 4)
         layout.addWidget(self.p2, 2, 0, 1, 4)
@@ -52,8 +66,20 @@ class PlayerTab(QWidget):
         commSwap.clicked.connect(self.swapCommentators)
         layout.addWidget(commSwap, 4, 3)
 
-        self.c1 = CommCell('Comm 1:', profile.get('commentators', {}), theme.get('navs', []))
-        self.c2 = CommCell('Comm 2:', profile.get('commentators', {}), theme.get('navs', []))
+        self.c1 = CommCell(
+            'Comm 1:',
+            profile.get('commentators', {}),
+            theme.get('navs', {}),
+            self.submit,
+            self.editSaveToggle
+        )
+        self.c2 = CommCell(
+            'Comm 2:',
+            profile.get('commentators', {}),
+            theme.get('navs', {}),
+            self.submit,
+            self.editSaveToggle
+        )
 
         layout.addWidget(self.c1, 5, 0, 1, 4)
         layout.addWidget(self.c2, 6, 0, 1, 4)
@@ -68,11 +94,15 @@ class PlayerTab(QWidget):
         matchClear.clicked.connect(self.clearMatch)
         layout.addWidget(matchClear, 8, 3)
 
-        self.m = MatchCell(profile.get('matchTitles', []), theme.get('backgrounds', []))
+        self.m = MatchCell(
+            profile.get('matchTitles', []),
+            theme.get('backgrounds', []),
+            self.submit,
+            self.editSaveToggle
+        )
         layout.addWidget(self.m, 9, 0, 1, 2)
 
         # Buttons
-        self.editSaveToggle = QCheckBox('Save on edit')
         self.editSaveToggle.setToolTip('Edit occurs when exiting focus of the selected textbox.')
         layout.addWidget(self.editSaveToggle, 10, 0)
 
