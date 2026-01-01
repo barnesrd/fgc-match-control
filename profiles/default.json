@@ -1,0 +1,28 @@
+{
+    "p4au": {
+        "players": {
+            "Mighty Joey": {
+                "char": "Teddie",
+                "ctry": "United States of America"
+            }
+        },
+        "commentators":{
+            "Jolteo": {
+                "hndl": "twitch.tv/Jolteo__",
+                "nav": "Rise"
+
+            }
+        },
+        "matchTitles": [
+            "Swiss",
+            "Pools",
+            "First to 10",
+            "Top 16",
+            "Top 8",
+            "Winners Finals",
+            "Losers Finals",
+            "Grand Finals",
+            "Grand Finals (Reset)"
+        ]
+    }
+}
