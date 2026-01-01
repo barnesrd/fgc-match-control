@@ -1,23 +1,36 @@
-from PySide6.QtWidgets import QWidget, QGridLayout, QPushButton, QLabel, QCheckBox, QToolTip
+from PySide6.QtWidgets import QWidget, QGridLayout, QPushButton, QLabel, QCheckBox, QToolTip, QHBoxLayout
+from time import time
+from contextlib import closing
+from json import dump
 
-from components.widgets import PlayerCell, CommCell, MatchCell, HorizLine
+from components.widgets import PlayerCell, CommCell, MatchCell, HorizLine, StatusBar
+from util.fileOps import exportScoreJson
 
 class PlayerTab(QWidget):
-    def __init__(self, profile: dict, theme: dict):
+    def __init__(self, profile: dict, theme: dict, statusBar: StatusBar):
         super().__init__()
 
+        self.statusBar = statusBar
         layout = QGridLayout()
 
         # Player Entry
         layout.addWidget(QLabel('<b><i>Player Data</i></b>'), 0, 0, 1, 2)
 
+        playerButtonLayout = QHBoxLayout()
+
         playerClear = QPushButton('Clear Players')
         playerClear.clicked.connect(self.clearPlayers)
-        layout.addWidget(playerClear, 0, 2)
+        playerButtonLayout.addWidget(playerClear)
 
         playerSwap = QPushButton('Swap')
         playerSwap.clicked.connect(self.swapPlayers)
-        layout.addWidget(playerSwap, 0, 3)
+        playerButtonLayout.addWidget(playerSwap)
+
+        scoreReset = QPushButton('Reset Score')
+        scoreReset.clicked.connect(self.resetScores)
+        playerButtonLayout.addWidget(scoreReset)
+
+        layout.addLayout(playerButtonLayout, 0, 2, 1, 2)
 
         self.p1 = PlayerCell('Player 1:', profile.get('players', {}), theme.get('characters', {}))
         self.p2 = PlayerCell('Player 2:', profile.get('players', {}), theme.get('characters', {}))
@@ -39,8 +52,8 @@ class PlayerTab(QWidget):
         commSwap.clicked.connect(self.swapCommentators)
         layout.addWidget(commSwap, 4, 3)
 
-        self.c1 = CommCell('Comm 1:', profile.get('commentators', {}))
-        self.c2 = CommCell('Comm 2:', profile.get('commentators', {}))
+        self.c1 = CommCell('Comm 1:', profile.get('commentators', {}), theme.get('navs', []))
+        self.c2 = CommCell('Comm 2:', profile.get('commentators', {}), theme.get('navs', []))
 
         layout.addWidget(self.c1, 5, 0, 1, 4)
         layout.addWidget(self.c2, 6, 0, 1, 4)
@@ -51,7 +64,11 @@ class PlayerTab(QWidget):
         # Match Data Entry
         layout.addWidget(QLabel('<b><i>Match Data</i></b>'), 8, 0, 1, 2)
 
-        self.m = MatchCell(profile.get('matchTitles'), [])
+        matchClear = QPushButton('Clear Match Data')
+        matchClear.clicked.connect(self.clearMatch)
+        layout.addWidget(matchClear, 8, 3)
+
+        self.m = MatchCell(profile.get('matchTitles', []), theme.get('backgrounds', []))
         layout.addWidget(self.m, 9, 0, 1, 2)
 
         # Buttons
@@ -68,6 +85,7 @@ class PlayerTab(QWidget):
         layout.addWidget(clear, 10, 2)
 
         submit = QPushButton('Submit')
+        submit.clicked.connect(self.submit)
         layout.addWidget(submit, 10, 3)
 
         self.setLayout(layout)
@@ -101,19 +119,58 @@ class PlayerTab(QWidget):
             tempPlug
         )
 
-    def clearPlayers(self) -> None:
+    def resetScores(self) -> None:
+        self.p1.counter.reset()
+        self.p2.counter.reset()
+
+    def clearPlayers(self, subcall: bool = False) -> None:
         self.p1.clear()
         self.p2.clear()
+        self.resetScores()
+        if not subcall and self.clearToggle.isChecked():
+            self.submit()
 
-    def clearComms(self) -> None:
+    def clearComms(self, subcall: bool = False) -> None:
         self.c1.clear()
         self.c2.clear()
+        if not subcall and self.clearToggle.isChecked():
+            self.submit()
     
-    def clearMatch(self) -> None:
+    def clearMatch(self, subcall: bool = False) -> None:
         self.m.clear()
+        if not subcall and self.clearToggle.isChecked():
+            self.submit()
 
     def clearAllData(self) -> None:
-        self.clearPlayers()
-        self.clearComms()
-        self.clearMatch()
-        
+        self.clearPlayers(True)
+        self.clearComms(True)
+        self.clearMatch(True)
+        if self.clearToggle.isChecked():
+            self.submit()
+
+    def submit(self) -> None:
+        exportScoreJson(
+            {
+                "timestamp": int(time()),
+
+                "p1name": self.p1.getName(),
+                "p1char": self.p1.getCharacterCode(),
+                "p1ctry": self.p1.getCountryCode(),
+                "p2name": self.p2.getName(),
+                "p2char": self.p2.getCharacterCode(),
+                "p2ctry": self.p2.getCountryCode(),
+
+                "c1name": self.c1.name.text(),
+                "c1plug": self.c1.plug.text(),
+                "c1nav": self.c1.nav.currentText(),
+                "c2name": self.c2.name.text(),
+                "c2plug": self.c2.plug.text(),
+                "c2nav": self.c2.nav.currentText(),
+
+                "title": self.m.title.text(),
+                "background": self.m.backgroundSelect.currentText(),
+                "p1score": self.p1.getScore(),
+                "p2score": self.p2.getScore()
+            }
+        )
+        self.statusBar.showMessage('Saved Successfully!', 800)

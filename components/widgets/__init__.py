@@ -4,3 +4,5 @@ from components.widgets.HorizLine import HorizLine
 from components.widgets.Entry import Entry
 from components.widgets.CommCell import CommCell
 from components.widgets.MatchCell import MatchCell
+from components.widgets.IntCounter import IntCounter
+from components.widgets.StatusBar import StatusBar

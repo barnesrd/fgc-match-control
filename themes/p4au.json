@@ -1,6 +1,6 @@
 {
+    "name": "p4au",
     "characters": {
-        "Shadow Type Labrys": "slb",
         "Narukami": "yu",
         "Yosuke": "yo",
         "Chie": "ch",
@@ -23,6 +23,7 @@
         "Margaret": "mg",
         "Sho": "sh",
         "Minazuki": "mz",
+        "Shadow Type Labrys": "slb",
         "Shadow Narukami": "syu",
         "Shadow Yosuke": "syo",
         "Shadow Chie": "sch",

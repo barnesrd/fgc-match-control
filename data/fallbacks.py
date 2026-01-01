@@ -26,6 +26,7 @@ profile = {
 }
 
 theme = {
+    "name": "p4au",
     "characters": {
         "Narukami": "yu",
         "Yosuke": "yo",
@@ -49,6 +50,7 @@ theme = {
         "Margaret": "mg",
         "Sho": "sh",
         "Minazuki": "mz",
+        "Shadow Type Labrys": "slb",
         "Shadow Narukami": "syu",
         "Shadow Yosuke": "syo",
         "Shadow Chie": "sch",
@@ -56,7 +58,6 @@ theme = {
         "Shadow Kanji": "ska",
         "Shadow Teddie": "sku",
         "Shadow Naoto": "sna",
-        "Shadow Type Labrys": "slb",
         "Shadow Akihiko": "sak",
         "Shadow Mitsuru": "sms",
         "Shadow Aigis": "sag",

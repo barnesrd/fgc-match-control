@@ -1,8 +1,24 @@
-from os import getcwd, path
+from os import getcwd, path, mkdir
+from pathlib import Path
 from contextlib import closing
-from json import load
+from json import load, dump
 
 from data.fallbacks import config, profile, theme
+
+def createFileStructure() -> None:
+    Path('./profiles').mkdir(parents=True, exist_ok=True)
+    if not path.exists('./profiles/default.json'):
+        with closing(open(path.join(getcwd(), './profiles/default.json'), 'w')) as f:
+            dump(profile, f, indent=4)
+    Path('./themes').mkdir(parents=True, exist_ok=True)
+    if not path.exists('./themes/p4au.json'):
+        with closing(open(path.join(getcwd(), './themes/p4au.json'), 'w')) as f:
+            dump(theme, f, indent=4)
+
+def exportScoreJson(data: dict) -> None:
+    Path('./json').mkdir(parents=True, exist_ok=True)
+    with closing(open(path.join(getcwd(), './json/scoreOverlay.json'), "w")) as f:
+        dump(data, f, indent=4)
 
 def getConfig() -> dict:
     try: 

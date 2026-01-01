@@ -4,13 +4,19 @@ from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QApplication
 
 from util.theming import setVisualTheme
-from util.fileOps import getConfig, getProfile, getTheme
+from util.fileOps import getConfig, getProfile, getTheme, createFileStructure
 from components.window import MainWindow
+from data.appdata import name, version
 
 if __name__ == '__main__':
     app: QApplication = QApplication([])
 
     setVisualTheme(app)
+
+    app.setApplicationName(name)
+    app.setApplicationVersion(version)
+
+    createFileStructure()
 
     config = getConfig()
     profile = getProfile()

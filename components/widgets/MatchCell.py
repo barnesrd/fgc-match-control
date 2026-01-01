@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QGridLayout, QComboBox
+from PySide6.QtWidgets import QWidget, QGridLayout, QComboBox, QLabel
 
 from components.widgets.Entry import Entry
 
@@ -14,9 +14,11 @@ class MatchCell(QWidget):
         self.title = Entry('Match Title', matchTitles, 20)
         layout.addWidget(self.title, 0, 0)
 
+        layout.addWidget(QLabel('Background Image:'), 0, 1)
+
         self.backgroundSelect = QComboBox()
         self.backgroundSelect.addItems(backgrounds)
-        layout.addWidget(self.backgroundSelect, 0, 1)
+        layout.addWidget(self.backgroundSelect, 0, 2)
 
         self.setLayout(layout)
 

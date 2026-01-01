@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QGridLayout
 
 from components.widgets.Entry import Entry
 from data.countries import countries
+from components.widgets.IntCounter import IntCounter
 
 class PlayerCell(QWidget):
     def __init__(self, label: str, players: dict, characters: dict):
@@ -19,18 +20,37 @@ class PlayerCell(QWidget):
         # Name Entry
         self.name = Entry('Name', self.players.keys())
         self.name.setOnFocusOut(self.autofillPlayer)
+        self.name.setToolTip("Player's name")
         layout.addWidget(self.name, 0, 1)
 
         # Character Entry
         self.character = Entry('Character', self.characters.keys(), 2)
+        self.character.setToolTip("Player's character")
         layout.addWidget(self.character, 0, 2)
 
         # Country Entry
         self.country = Entry('Country', countries.keys(), 2)
+        self.country.setToolTip("Player's country")
         layout.addWidget(self.country, 0, 3)
+
+        self.counter = IntCounter(0, 99)
+        self.counter.setToolTip("Player's score (Affects scoreboard)")
+        layout.addWidget(self.counter, 0, 4)
 
         self.setLayout(layout)
         self.show()
+
+    def getName(self) -> str:
+        return self.name.text()
+
+    def getCharacterCode(self) -> str:
+        return self.characters.get(self.character.text(), '')
+
+    def getCountryCode(self) -> str:
+        return countries.get(self.country.text(), '')
+    
+    def getScore(self) -> int:
+        return int(self.counter.counter.text())
 
     def reload(self, players: dict, characters: dict):
         self.players = players
@@ -54,3 +74,4 @@ class PlayerCell(QWidget):
         self.name.setText('')
         self.character.setText('')
         self.country.setText('')
+        self.counter.reset()
