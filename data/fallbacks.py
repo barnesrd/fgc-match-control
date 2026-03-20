@@ -1,6 +1,7 @@
 config = {
-    "activeTheme": "p4au",
-    "activeProfile": "default"
+    "activeGame": "p4au",
+    "activeProfile": "default",
+    "activeTheme": "blender"
 }
 
 profile = {
@@ -25,7 +26,7 @@ profile = {
     }
 }
 
-theme = {
+game = {
     "name": "p4au",
     "characters": {
         "Narukami": "yu",

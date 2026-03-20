@@ -1,7 +1,7 @@
-from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QComboBox, QCheckBox
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
-from components.widgets.Entry import Entry
-from components.widgets.ComboBox import ComboBox
+from widgets.components.Entry import Entry
+from widgets.components.ComboBox import ComboBox
 
 class CommCell(QWidget):
     def __init__(self, label: str, commentators: dict, navigators: dict, submitFunc: callable, editSubmitToggle: QCheckBox):
@@ -17,12 +17,12 @@ class CommCell(QWidget):
         layout.addWidget(QLabel(label), 0, 0)
 
         # Name
-        self.name = Entry('Name', commentators.keys())
+        self.name = Entry('Name', commentators.keys(), 25)
         self.name.setOnFocusOut(self.autofillComms)
         layout.addWidget(self.name, 0, 1)
 
         # Plug / Handle
-        self.plug = Entry('Plug/Handle')
+        self.plug = Entry('Plug/Handle', [], 25)
         self.plug.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.plug, 0, 2)
 

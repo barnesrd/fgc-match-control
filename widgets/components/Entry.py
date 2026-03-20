@@ -1,11 +1,10 @@
-from PySide6.QtWidgets import QLineEdit, QToolTip, QCompleter
+from PySide6.QtWidgets import QLineEdit, QCompleter
 from PySide6.QtCore import Qt
-from functools import reduce
 
 from util.qtHelpers import getEntryWidth
 
 class Entry(QLineEdit):
-    def __init__(self, placeholder: str = "", autocomplete: list[str] = [], maxLength: int = 25):
+    def __init__(self, placeholder: str = "", autocomplete: list[str] = [], maxLength: int = 20):
         super().__init__()
         self.onFocusOut = lambda: None
         self.initialMaxLength = maxLength
