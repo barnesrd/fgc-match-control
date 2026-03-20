@@ -3,8 +3,16 @@ from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 from widgets.components.Entry import Entry
 from widgets.components.ComboBox import ComboBox
 
+
 class CommCell(QWidget):
-    def __init__(self, label: str, commentators: dict, navigators: dict, submitFunc: callable, editSubmitToggle: QCheckBox):
+    def __init__(
+        self,
+        label: str,
+        commentators: dict,
+        navigators: dict,
+        submitFunc: callable,
+        editSubmitToggle: QCheckBox,
+    ):
         super().__init__()
         self.commentators = commentators
         self.navigators = navigators
@@ -27,7 +35,9 @@ class CommCell(QWidget):
         layout.addWidget(self.plug, 0, 2)
 
         self.nav = ComboBox()
-        self.nav.setToolTip('Sets the navigator graphic to be used on the commentator overlay')
+        self.nav.setToolTip(
+            'Sets the navigator graphic to be used on the commentator overlay'
+        )
         self.nav.setOnFocusOut(self.trySubmit)
         self.configureNav(navigators)
         layout.addWidget(self.nav, 0, 3)
@@ -43,7 +53,7 @@ class CommCell(QWidget):
 
     def getPlug(self) -> str:
         return self.plug.text()
-    
+
     def getNavCode(self) -> str:
         return self.navigators.get(self.nav.currentText(), '')
 

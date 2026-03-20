@@ -6,6 +6,7 @@ from typing import Generator, TextIO
 
 from data.fallbacks import config, profile, game
 
+
 @contextmanager
 def open_file(filepath: str, mode: str) -> Generator[TextIO]:
     f = open(filepath, mode)
@@ -15,6 +16,7 @@ def open_file(filepath: str, mode: str) -> Generator[TextIO]:
         print(f'Path {filepath} does not exist!')
     finally:
         f.close()
+
 
 def createFileStructure() -> None:
     Path('./profiles').mkdir(parents=True, exist_ok=True)
@@ -29,19 +31,27 @@ def createFileStructure() -> None:
         with closing(open(path.join(getcwd(), 'config.json'), 'w')) as f:
             dump(config, f, indent=4)
 
+
 def exportScoreJson(data: dict) -> None:
     Path('./json').mkdir(parents=True, exist_ok=True)
-    with closing(open(path.join(getcwd(), './json/scoreOverlay.json'), "w")) as f:
+    with closing(open(path.join(getcwd(), './json/scoreOverlay.json'), 'w')) as f:
         dump(data, f, indent=4)
+
 
 def getConfig() -> dict:
     with open_file(path.join(getcwd(), 'config.json'), 'r') as f:
         return load(f)
 
+
 def getProfile() -> dict:
-    with open_file(path.join(getcwd(), f'profiles/{config.get('activeProfile')}.json'), 'r') as f:
+    with open_file(
+        path.join(getcwd(), f'profiles/{config.get("activeProfile")}.json'), 'r'
+    ) as f:
         return load(f)
 
+
 def getGame() -> dict:
-    with open_file(path.join(getcwd(), f'games/{config.get('activeGame')}.json'), 'r') as f:
+    with open_file(
+        path.join(getcwd(), f'games/{config.get("activeGame")}.json'), 'r'
+    ) as f:
         return load(f)

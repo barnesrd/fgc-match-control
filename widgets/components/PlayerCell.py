@@ -4,8 +4,16 @@ from widgets.components.Entry import Entry
 from data.countries import countries
 from widgets.components.IntCounter import IntCounter
 
+
 class PlayerCell(QWidget):
-    def __init__(self, label: str, players: dict, characters: dict, submitFunc: callable, editSubmitToggle: QCheckBox):
+    def __init__(
+        self,
+        label: str,
+        players: dict,
+        characters: dict,
+        submitFunc: callable,
+        editSubmitToggle: QCheckBox,
+    ):
         super().__init__()
         self.players = players
         self.characters = characters
@@ -14,10 +22,7 @@ class PlayerCell(QWidget):
 
         layout = QGridLayout()
         layout.setContentsMargins(2, 2, 2, 2)
-        layout.addWidget(
-            QLabel(label),
-            0, 0
-        )
+        layout.addWidget(QLabel(label), 0, 0)
 
         # Name Entry
         self.name = Entry('Name', self.players.keys(), 25)
@@ -52,7 +57,7 @@ class PlayerCell(QWidget):
 
     def getCountryCode(self) -> str:
         return countries.get(self.country.text(), '')
-    
+
     def getScore(self) -> int:
         return int(self.counter.counter.text())
 

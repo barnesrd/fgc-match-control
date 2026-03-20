@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QMenuBar, QMenu
 
+
 class Menubar(QMenuBar):
     def __init__(self, config: dict):
         super().__init__()

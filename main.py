@@ -17,7 +17,7 @@ if __name__ == '__main__':
     config = getConfig()
     profile = getProfile()
     game = getGame()
-    
+
     setVisualTheme(app, config.get('activeTheme'))
 
     main = MainWindow(profile, game, config)

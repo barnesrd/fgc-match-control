@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QStatusBar, QLabel
 
 from data.appdata import version
 
+
 class StatusBar(QStatusBar):
     def __init__(self, theme: str, profile: str):
         super().__init__()

@@ -3,8 +3,15 @@ from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QCheckBox
 from widgets.components.Entry import Entry
 from widgets.components.ComboBox import ComboBox
 
+
 class MatchCell(QWidget):
-    def __init__(self, matchTitles: list[str], backgrounds: list[str], submitFunc: callable, editSaveToggle: QCheckBox):
+    def __init__(
+        self,
+        matchTitles: list[str],
+        backgrounds: list[str],
+        submitFunc: callable,
+        editSaveToggle: QCheckBox,
+    ):
         super().__init__()
         self.matchTitles = matchTitles
         self.backgrounds = backgrounds

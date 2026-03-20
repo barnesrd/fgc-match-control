@@ -4,10 +4,11 @@ from PySide6.QtCore import Qt
 from widgets.components.Entry import Entry
 from widgets.components.CrewPlayer import CrewPlayer
 
+
 class CrewTeam(QWidget):
     def __init__(self, profile: dict, theme: dict):
         super().__init__()
-        
+
         layout = QVBoxLayout()
 
         self.teamName = Entry('Team Name')
@@ -24,9 +25,7 @@ class CrewTeam(QWidget):
         playerLayout.setSpacing(0)
         playerLayout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        self.players = [
-            CrewPlayer()
-        ]
+        self.players = [CrewPlayer()]
 
         playerLayout.addWidget(CrewPlayer())
         playerLayout.addWidget(CrewPlayer())
@@ -40,7 +39,6 @@ class CrewTeam(QWidget):
         playerLayout.addWidget(CrewPlayer())
 
         self.setLayout(layout)
-        
+
     def addPlayer(self):
         pass
-

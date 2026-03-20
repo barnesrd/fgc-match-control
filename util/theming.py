@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt
 import qt_themes
 from data.appdata import validVisualThemes
 
+
 def setVisualTheme(app: Qt, theme: str) -> None:
     font: QFont = app.font()
     font.setStyleHint(QFont.System)

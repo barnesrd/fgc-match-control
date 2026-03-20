@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt
 
 from widgets.components import CrewTeam
 
+
 class CrewTab(QWidget):
     def __init__(self, profile: dict, theme: dict):
         super().__init__()
@@ -26,7 +27,7 @@ class CrewTab(QWidget):
         buttonLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         layout.addLayout(buttonLayout)
-        
+
         layout.addWidget(CrewTeam(profile, theme))
 
         self.setLayout(layout)

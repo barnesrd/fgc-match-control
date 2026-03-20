@@ -1,9 +1,17 @@
-from PySide6.QtWidgets import QWidget, QGridLayout, QPushButton, QLabel, QCheckBox, QHBoxLayout
+from PySide6.QtWidgets import (
+    QWidget,
+    QGridLayout,
+    QPushButton,
+    QLabel,
+    QCheckBox,
+    QHBoxLayout,
+)
 from time import time
 
 from widgets.components import PlayerCell, CommCell, MatchCell, HorizLine
 from widgets.system import StatusBar
 from util.fileOps import exportScoreJson
+
 
 class PlayerTab(QWidget):
     def __init__(self, profile: dict, theme: dict, statusBar: StatusBar):
@@ -38,14 +46,14 @@ class PlayerTab(QWidget):
             profile.get('players', {}),
             theme.get('characters', {}),
             self.submit,
-            self.editSaveToggle
+            self.editSaveToggle,
         )
         self.p2 = PlayerCell(
             'Player 2:',
             profile.get('players', {}),
             theme.get('characters', {}),
             self.submit,
-            self.editSaveToggle
+            self.editSaveToggle,
         )
 
         layout.addWidget(self.p1, 1, 0, 1, 4)
@@ -70,14 +78,14 @@ class PlayerTab(QWidget):
             profile.get('commentators', {}),
             theme.get('navs', {}),
             self.submit,
-            self.editSaveToggle
+            self.editSaveToggle,
         )
         self.c2 = CommCell(
             'Comm 2:',
             profile.get('commentators', {}),
             theme.get('navs', {}),
             self.submit,
-            self.editSaveToggle
+            self.editSaveToggle,
         )
 
         layout.addWidget(self.c1, 5, 0, 1, 4)
@@ -97,16 +105,20 @@ class PlayerTab(QWidget):
             profile.get('matchTitles', []),
             theme.get('backgrounds', []),
             self.submit,
-            self.editSaveToggle
+            self.editSaveToggle,
         )
         layout.addWidget(self.m, 9, 0, 1, 2)
 
         # Buttons
-        self.editSaveToggle.setToolTip('Edit occurs when exiting focus of the selected textbox.')
+        self.editSaveToggle.setToolTip(
+            'Edit occurs when exiting focus of the selected textbox.'
+        )
         layout.addWidget(self.editSaveToggle, 10, 0)
 
         self.clearToggle = QCheckBox('Reset overlay on Clear')
-        self.clearToggle.setToolTip('Resets data to blank for overlays when pressing the "Clear" button')
+        self.clearToggle.setToolTip(
+            'Resets data to blank for overlays when pressing the "Clear" button'
+        )
         layout.addWidget(self.clearToggle, 10, 1)
 
         clear = QPushButton('Clear')
@@ -125,28 +137,16 @@ class PlayerTab(QWidget):
         tempCountry = self.p1.country.text()
 
         self.p1.setTextContents(
-            self.p2.name.text(),
-            self.p2.character.text(),
-            self.p2.country.text()
+            self.p2.name.text(), self.p2.character.text(), self.p2.country.text()
         )
-        self.p2.setTextContents(
-            tempName,
-            tempCharacter,
-            tempCountry
-        )
+        self.p2.setTextContents(tempName, tempCharacter, tempCountry)
 
     def swapCommentators(self):
         tempName = self.c1.name.text()
         tempPlug = self.c1.plug.text()
 
-        self.c1.setTextContents(
-            self.c2.name.text(),
-            self.c2.plug.text()
-        )
-        self.c2.setTextContents(
-            tempName,
-            tempPlug
-        )
+        self.c1.setTextContents(self.c2.name.text(), self.c2.plug.text())
+        self.c2.setTextContents(tempName, tempPlug)
 
     def resetScores(self) -> None:
         self.p1.counter.reset()
@@ -164,7 +164,7 @@ class PlayerTab(QWidget):
         self.c2.clear()
         if not subcall and self.clearToggle.isChecked():
             self.submit()
-    
+
     def clearMatch(self, subcall: bool = False) -> None:
         self.m.clear()
         if not subcall and self.clearToggle.isChecked():
@@ -180,26 +180,23 @@ class PlayerTab(QWidget):
     def submit(self) -> None:
         exportScoreJson(
             {
-                "timestamp": int(time()),
-
-                "p1name": self.p1.getName(),
-                "p1char": self.p1.getCharacterCode(),
-                "p1ctry": self.p1.getCountryCode(),
-                "p2name": self.p2.getName(),
-                "p2char": self.p2.getCharacterCode(),
-                "p2ctry": self.p2.getCountryCode(),
-
-                "c1name": self.c1.name.text(),
-                "c1plug": self.c1.plug.text(),
-                "c1nav": self.c1.nav.currentText(),
-                "c2name": self.c2.name.text(),
-                "c2plug": self.c2.plug.text(),
-                "c2nav": self.c2.nav.currentText(),
-
-                "title": self.m.title.text(),
-                "background": self.m.backgroundSelect.currentText(),
-                "p1score": self.p1.getScore(),
-                "p2score": self.p2.getScore()
+                'timestamp': int(time()),
+                'p1name': self.p1.getName(),
+                'p1char': self.p1.getCharacterCode(),
+                'p1ctry': self.p1.getCountryCode(),
+                'p2name': self.p2.getName(),
+                'p2char': self.p2.getCharacterCode(),
+                'p2ctry': self.p2.getCountryCode(),
+                'c1name': self.c1.name.text(),
+                'c1plug': self.c1.plug.text(),
+                'c1nav': self.c1.nav.currentText(),
+                'c2name': self.c2.name.text(),
+                'c2plug': self.c2.plug.text(),
+                'c2nav': self.c2.nav.currentText(),
+                'title': self.m.title.text(),
+                'background': self.m.backgroundSelect.currentText(),
+                'p1score': self.p1.getScore(),
+                'p2score': self.p2.getScore(),
             }
         )
         self.statusBar.showMessage('Saved Successfully!', 800)

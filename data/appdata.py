@@ -15,5 +15,5 @@ validVisualThemes = {
     'modern_light',
     'monokai',
     'nord',
-    'one_dark_two'
+    'one_dark_two',
 }
