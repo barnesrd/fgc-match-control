@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QGridLayout, QComboBox, QLabel, QCheckBox
+from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QCheckBox
 
 from widgets.components.Entry import Entry
 from widgets.components.ComboBox import ComboBox

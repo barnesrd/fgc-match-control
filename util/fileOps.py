@@ -1,9 +1,20 @@
-from os import getcwd, path, mkdir
+from os import getcwd, path
 from pathlib import Path
-from contextlib import closing
+from contextlib import closing, contextmanager
 from json import load, dump
+from typing import Generator, TextIO
 
 from data.fallbacks import config, profile, game
+
+@contextmanager
+def open_file(filepath: str, mode: str) -> Generator[TextIO]:
+    f = open(filepath, mode)
+    try:
+        yield f
+    except FileNotFoundError:
+        print(f'Path {filepath} does not exist!')
+    finally:
+        f.close()
 
 def createFileStructure() -> None:
     Path('./profiles').mkdir(parents=True, exist_ok=True)
@@ -24,29 +35,13 @@ def exportScoreJson(data: dict) -> None:
         dump(data, f, indent=4)
 
 def getConfig() -> dict:
-    try: 
-        with closing(open(path.join(getcwd(), 'config.json'), 'r')) as f:
-            return load(f)
-    except:
-        print('Config loaded wrong, falling back')
-        return config
+    with open_file(path.join(getcwd(), 'config.json'), 'r') as f:
+        return load(f)
 
 def getProfile() -> dict:
-    try:
-        with closing(open(path.join(getcwd(), f'profiles/{config.get('activeProfile')}.json'), 'r')) as f:
-            print(getConfig().get('activeProfile'))
-            return load(f)
-    except:
-        print('Profile loaded wrong, falling back')
-        # Fallback profile
-        return profile
+    with open_file(path.join(getcwd(), f'profiles/{config.get('activeProfile')}.json'), 'r') as f:
+        return load(f)
 
 def getGame() -> dict:
-    try:
-        with closing(open(path.join(getcwd(), f'games/{config.get('activeGame')}.json'), 'r')) as f:
-            print(getConfig().get('activeGame'))
-            return load(f)
-    except:
-        print('Game loaded wrong, falling back')
-        # Fallback game
-        return game
+    with open_file(path.join(getcwd(), f'games/{config.get('activeGame')}.json'), 'r') as f:
+        return load(f)

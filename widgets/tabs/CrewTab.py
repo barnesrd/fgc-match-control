@@ -1,7 +1,7 @@
-from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QPushButton
+from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton
 from PySide6.QtCore import Qt
 
-from widgets.components import PlayerCell, CrewTeam
+from widgets.components import CrewTeam
 
 class CrewTab(QWidget):
     def __init__(self, profile: dict, theme: dict):

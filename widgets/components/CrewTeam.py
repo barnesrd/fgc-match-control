@@ -3,7 +3,6 @@ from PySide6.QtCore import Qt
 
 from widgets.components.Entry import Entry
 from widgets.components.CrewPlayer import CrewPlayer
-from widgets.components.HorizLine import HorizLine
 
 class CrewTeam(QWidget):
     def __init__(self, profile: dict, theme: dict):

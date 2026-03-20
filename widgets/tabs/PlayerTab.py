@@ -1,7 +1,5 @@
-from PySide6.QtWidgets import QWidget, QGridLayout, QPushButton, QLabel, QCheckBox, QToolTip, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QGridLayout, QPushButton, QLabel, QCheckBox, QHBoxLayout
 from time import time
-from contextlib import closing
-from json import dump
 
 from widgets.components import PlayerCell, CommCell, MatchCell, HorizLine
 from widgets.system import StatusBar

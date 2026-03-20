@@ -1,1 +1,1 @@
-from widgets.window.MainWindow import MainWindow
+from widgets.window.MainWindow import MainWindow as MainWindow

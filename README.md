@@ -39,7 +39,8 @@ Based on work done for the Persona 4 Arena Ultimax community, this reworked prog
 
 
 ### Built With
- [![P6Side6][PySide6]][PySide6-url] <b>PySide6</b> - Qt bindings for Python
+ - [![P6Side6][PySide6-shield]][PySide6-url] <b>PySide6</b> - Qt bindings for Python
+ - [![Ruff][Ruff-shield]][Ruff-url] <b>Ruff</b> - Code linter and style enforcer
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -68,11 +69,26 @@ That's it!
    ```sh
    git clone https://github.com/barnesrd/fgc-match-control.git
    ```
-2. Install packages with pip
+2. (Optional) Create a new virtual environment for this project
+   
+   Create the environment.
+   ```
+   python -m venv /path/to/new/virtual/environment
+   ```
+   Activate the new environment. <b>(```<venv>``` must be replaced by the path to the directory containing the virtual environment)</b>
+   | Platform | Shell      | Command to activate venv                  |
+   | -------- | --------   | ----------------------------------------- |
+   | POSIX    | bash/zsh   | ```$ source <venv>/bin/activate```        |
+   | POSIX    | fish       | ```$ source <venv>/bin/activate.fish```   |
+   | POSIX    | csh/txsh   | ```$ source <venv>/bin/activate.csh```    |
+   | POSIX    | pwsh       | ```$ <venv>/bin/Activate.ps1```           |
+   | Windows  | cmd.exe    | ```C:\> <venv>\Scripts\activate.bat```    |
+   | Windows  | PowerShell | ```PS C:\> <venv>\Scripts\Activate.ps1``` |
+3. Install packages with pip
    ```sh
    pip install -r requirements.txt
    ```
-3. Change git remote url to avoid accidental pushes to base project
+4. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin github-username/repository-name
    git remote -v # confirm the changes
@@ -99,15 +115,18 @@ python main.py
 - [x] Player Controls
 - [x] Commentator Controls
 - [x] Match Title Controls
-- [ ] Crewbattle Controls
+- [ ] Crewbattle Controls (Delayed)
   - [ ] Add players via button
   - [ ] Autofill teams by team title if saved
   - [ ] Add quality of life toggles (Update on edit, clear overlay on "clear", etc.)
 - [ ] Add Menu Bar functionality
+  - [ ] Create options and preferences menu
+  - [ ] Create custom profile support
+  - [ ] Create game theme creation window
+  - [ ] Add information section
+  - [ ] Create basic tutorials in help menu
 - [ ] Refine User Experience
 
-
-See the [open issues](https://github.com/barnesrd/fgc-match-control/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -117,6 +136,8 @@ See the [open issues](https://github.com/barnesrd/fgc-match-control/issues) for 
 ## Contributing
 
 Any contributions or suggestions are greatly appreciated! If you have a suggestion that would improve this project, please fork the repo and create a pull request. You can also open an issue with the tag "enhancement". 
+
+It is reccommended that any pushes follow code style guidelines enforced by [Ruff].
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AdditionalFeature`)
@@ -154,6 +175,8 @@ Distributed under the MIT license. See `LICENSE.txt` for more information.
 [license-url]: https://github.com/barnesrd/fgc-match-control/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ryan-barnes-houston
-<!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->
-[PySide6]: https://img.shields.io/badge/Qt-2CDE85?logo=Qt&logoColor=fff
+[PySide6-shield]: https://img.shields.io/badge/Qt-2CDE85?logo=Qt&logoColor=fff
 [PySide6-url]: https://doc.qt.io/qtforpython-6.9/
+[Ruff-shield]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+[Ruff-url]: https://docs.astral.sh/ruff/
+<!-- Shields.io badges. You can a comprehensive list with many more badges at: https://github.com/inttter/md-badges -->

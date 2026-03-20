@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QLineEdit, QPushButton, QWidget, QGridLayout, QCheckBox
+from PySide6.QtWidgets import QPushButton, QWidget, QGridLayout, QCheckBox
 from PySide6.QtGui import QIntValidator
 
 from widgets.components.Entry import Entry

@@ -1,6 +1,5 @@
-from PySide6.QtWidgets import QLineEdit, QToolTip, QCompleter
+from PySide6.QtWidgets import QLineEdit, QCompleter
 from PySide6.QtCore import Qt
-from functools import reduce
 
 from util.qtHelpers import getEntryWidth
 

@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QWidget, QHBoxLayout
 
 from widgets.components.Entry import Entry
 from widgets.components.IntCounter import IntCounter
-from widgets.components.ComboBox import ComboBox
 
 class CrewPlayer(QWidget):
     def __init__(self):

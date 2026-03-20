@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QFrame, QWidget
+from PySide6.QtWidgets import QFrame
 
 class HorizLine(QFrame):
     def __init__(self):

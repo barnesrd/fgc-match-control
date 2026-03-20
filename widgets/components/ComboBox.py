@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QComboBox, QCheckBox
+from PySide6.QtWidgets import QComboBox
 
 class ComboBox(QComboBox):
     def __init__(self):

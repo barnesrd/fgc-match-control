@@ -1,6 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QMenuBar, QMenu, QToolBar
-from PySide6.QtGui import QIcon, QAction
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QMenuBar, QMenu
 
 class Menubar(QMenuBar):
     def __init__(self, config: dict):
