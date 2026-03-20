@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QComboBox, QCheckBox
 
-from components.widgets.Entry import Entry
-from components.widgets.ComboBox import ComboBox
+from widgets.components.Entry import Entry
+from widgets.components.ComboBox import ComboBox
 
 class CommCell(QWidget):
     def __init__(self, label: str, commentators: dict, navigators: dict, submitFunc: callable, editSubmitToggle: QCheckBox):

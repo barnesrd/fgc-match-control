@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
-from components.widgets.Entry import Entry
+from widgets.components.Entry import Entry
 from data.countries import countries
-from components.widgets.IntCounter import IntCounter
+from widgets.components.IntCounter import IntCounter
 
 class PlayerCell(QWidget):
     def __init__(self, label: str, players: dict, characters: dict, submitFunc: callable, editSubmitToggle: QCheckBox):

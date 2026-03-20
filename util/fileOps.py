@@ -3,17 +3,20 @@ from pathlib import Path
 from contextlib import closing
 from json import load, dump
 
-from data.fallbacks import config, profile, theme
+from data.fallbacks import config, profile, game
 
 def createFileStructure() -> None:
     Path('./profiles').mkdir(parents=True, exist_ok=True)
     if not path.exists('./profiles/default.json'):
-        with closing(open(path.join(getcwd(), './profiles/default.json'), 'w')) as f:
+        with closing(open(path.join(getcwd(), 'profiles/default.json'), 'w')) as f:
             dump(profile, f, indent=4)
-    Path('./themes').mkdir(parents=True, exist_ok=True)
-    if not path.exists('./themes/p4au.json'):
-        with closing(open(path.join(getcwd(), './themes/p4au.json'), 'w')) as f:
-            dump(theme, f, indent=4)
+    Path('./games').mkdir(parents=True, exist_ok=True)
+    if not path.exists('./games/p4au.json'):
+        with closing(open(path.join(getcwd(), 'games/p4au.json'), 'w')) as f:
+            dump(game, f, indent=4)
+    if not path.exists('./config.json'):
+        with closing(open(path.join(getcwd(), 'config.json'), 'w')) as f:
+            dump(config, f, indent=4)
 
 def exportScoreJson(data: dict) -> None:
     Path('./json').mkdir(parents=True, exist_ok=True)
@@ -38,12 +41,12 @@ def getProfile() -> dict:
         # Fallback profile
         return profile
 
-def getTheme() -> dict:
+def getGame() -> dict:
     try:
-        with closing(open(path.join(getcwd(), f'themes/{config.get('activeTheme')}.json'), 'r')) as f:
-            print(getConfig().get('activeTheme'))
+        with closing(open(path.join(getcwd(), f'games/{config.get('activeGame')}.json'), 'r')) as f:
+            print(getConfig().get('activeGame'))
             return load(f)
     except:
-        print('Theme loaded wrong, falling back')
-        # Fallback theme
-        return theme
+        print('Game loaded wrong, falling back')
+        # Fallback game
+        return game

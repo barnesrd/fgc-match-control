@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QWidget, QFrame, QGridLayout, QVBoxLayout
 from PySide6.QtCore import Qt
 
-from components.widgets.Entry import Entry
-from components.widgets.CrewPlayer import CrewPlayer
-from components.widgets.HorizLine import HorizLine
+from widgets.components.Entry import Entry
+from widgets.components.CrewPlayer import CrewPlayer
+from widgets.components.HorizLine import HorizLine
 
 class CrewTeam(QWidget):
     def __init__(self, profile: dict, theme: dict):

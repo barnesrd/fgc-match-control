@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QLineEdit, QPushButton, QWidget, QGridLayout, QCheckBox
 from PySide6.QtGui import QIntValidator
 
-from components.widgets.Entry import Entry
+from widgets.components.Entry import Entry
 
 class IntCounter(QWidget):
     def __init__(self, minimum: int = 0, maximum: int = 999, default: int = 0, submitFunc: callable = None, editSaveToggle: QCheckBox = None):
