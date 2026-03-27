@@ -1,90 +1,90 @@
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
-from widgets.components.Entry import Entry
+from widgets.wrappers import Entry, IntCounter
 from data.countries import countries
-from widgets.components.IntCounter import IntCounter
 
 
 class PlayerCell(QWidget):
     def __init__(
         self,
         label: str,
-        players: dict,
-        characters: dict,
         submitFunc: callable,
         editSubmitToggle: QCheckBox,
     ):
         super().__init__()
-        self.players = players
-        self.characters = characters
+        
         self.submitFunc = submitFunc
         self.editSubmitToggle = editSubmitToggle
 
         layout = QGridLayout()
         layout.setContentsMargins(2, 2, 2, 2)
+        
+        # Initial Label
         layout.addWidget(QLabel(label), 0, 0)
 
         # Name Entry
-        self.name = Entry('Name', self.players.keys(), 25)
-        self.name.setOnFocusOut(self.autofillPlayer)
-        self.name.setToolTip("Player's name")
-        layout.addWidget(self.name, 0, 1)
+        self.name_entry = Entry('Name', [], 25)
+        #self.name_entry.setOnFocusOut(self.autofillPlayer)
+        self.name_entry.setToolTip("Player's name")
+        layout.addWidget(self.name_entry, 0, 1)
 
         # Character Entry
-        self.character = Entry('Character', self.characters.keys(), 2)
-        self.character.setToolTip("Player's character")
-        self.character.setOnFocusOut(self.trySubmit)
-        layout.addWidget(self.character, 0, 2)
+        self.character_entry = Entry('Character', [], 2)
+        self.character_entry.setToolTip("Player's character")
+        self.character_entry.setOnFocusOut(self.trySubmit)
+        layout.addWidget(self.character_entry, 0, 2)
 
         # Country Entry
-        self.country = Entry('Country', countries.keys(), 2)
-        self.country.setToolTip("Player's country")
-        self.country.setOnFocusOut(self.trySubmit)
-        layout.addWidget(self.country, 0, 3)
+        self.country_entry = Entry('Country', [], 2)
+        self.country_entry.setToolTip("Player's country")
+        self.country_entry.setOnFocusOut(self.trySubmit)
+        layout.addWidget(self.country_entry, 0, 3)
 
-        self.counter = IntCounter(0, 99, 0, submitFunc, editSubmitToggle)
-        self.counter.setToolTip("Player's score (Affects scoreboard)")
-        layout.addWidget(self.counter, 0, 4)
+        self.score_counter = IntCounter(0, 99, 0, submitFunc, editSubmitToggle)
+        self.score_counter.setToolTip("Player's score (Affects scoreboard)")
+        layout.addWidget(self.score_counter, 0, 4)
 
         self.setLayout(layout)
         self.show()
 
-    def getName(self) -> str:
-        return self.name.text()
+    @property
+    def name(self) -> str:
+        return self.name_entry.text()
 
-    def getCharacterCode(self) -> str:
-        return self.characters.get(self.character.text(), '')
+    @property
+    def character(self) -> str:
+        return self.character_entry.text()
 
-    def getCountryCode(self) -> str:
-        return countries.get(self.country.text(), '')
+    @property
+    def country(self) -> str:
+        return self.country_entry.text()
+    
+    @property
+    def score(self) -> int:
+        return self.score_counter.count
 
     def getScore(self) -> int:
-        return int(self.counter.counter.text())
-
-    def reload(self, players: dict, characters: dict):
-        self.players = players
-        self.characters = characters
-        self.name.loadAutocomplete(self.players.keys())
-        self.character.loadAutocomplete(self.characters.keys())
+        return int(self.score_counter.counter.text())
 
     def setTextContents(self, name: str, character: str, country: str) -> None:
-        self.name.setText(name)
-        self.character.setText(character)
-        self.country.setText(country)
+        self.name_entry.setText(name)
+        self.character_entry.setText(character)
+        self.country_entry.setText(country)
 
     def trySubmit(self):
         if self.editSubmitToggle.isChecked():
             self.submitFunc()
 
-    def autofillPlayer(self):
-        player = self.players.get(self.name.text())
-        if player is not None:
-            self.character.setText(player.get('char', ''))
-            self.country.setText(player.get('ctry', ''))
-        self.trySubmit()
-
     def clear(self):
-        self.name.setText('')
-        self.character.setText('')
-        self.country.setText('')
-        self.counter.reset()
+        self.name_entry.setText('')
+        self.character_entry.setText('')
+        self.country_entry.setText('')
+        self.score_counter.reset()
+"""
+    def autofillPlayer(self):
+        player = self.players.get(self.name_entry.text())
+        if player is not None:
+            self.character_entry.setText(player.get('char', ''))
+            self.country_entry.setText(player.get('ctry', ''))
+        self.trySubmit()
+"""

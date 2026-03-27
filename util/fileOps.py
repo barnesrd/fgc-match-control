@@ -32,7 +32,9 @@ def create_file(filepath: str, content: str, replace: bool = True) -> None:
 def createFileStructure() -> None:
     Path('./profiles').mkdir(parents=True, exist_ok=True)
     if not path.exists('./profiles/default.json'):
-        with closing(open(path.join(getcwd(), 'profiles/default.json'), 'w')) as f:
+        with closing(
+            open(path.join(getcwd(), 'profiles/default.json'), 'w')
+        ) as f:
             dump(profile, f, indent=4)
     Path('./games').mkdir(parents=True, exist_ok=True)
     if not path.exists('./games/p4au.json'):
@@ -45,7 +47,9 @@ def createFileStructure() -> None:
 
 def exportScoreJson(data: dict) -> None:
     Path('./json').mkdir(parents=True, exist_ok=True)
-    with closing(open(path.join(getcwd(), './json/scoreOverlay.json'), 'w')) as f:
+    with closing(
+        open(path.join(getcwd(), './json/scoreOverlay.json'), 'w')
+    ) as f:
         dump(data, f, indent=4)
 
 
@@ -56,7 +60,8 @@ def getConfig() -> dict:
 
 def getProfile() -> dict:
     with open_file(
-        path.join(getcwd(), f'profiles/{config.get("activeProfile")}.json'), mode='r'
+        path.join(getcwd(), f'profiles/{config.get("activeProfile")}.json'),
+        mode='r',
     ) as f:
         return load(f)
 

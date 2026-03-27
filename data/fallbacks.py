@@ -1,4 +1,8 @@
-config = {'activeGame': 'p4au', 'activeProfile': 'default', 'activeTheme': 'blender'}
+config = {
+    'activeGame': 'p4au',
+    'activeProfile': 'default',
+    'activeTheme': 'blender',
+}
 
 profile = {
     'p4au': {

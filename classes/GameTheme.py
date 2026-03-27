@@ -1,8 +1,37 @@
-class GameTheme:
-    """
-    Holds data regarding a game's supported values.
-    Implemented in a singleton class instance.
-    """
+from util.fileOps import open_file
+from dataclasses import dataclass
+from json import load
 
-    def __init__(self):
-        pass
+
+@dataclass
+class GameTheme:
+    name: str
+    characters: dict[str:str]
+    backgrounds: dict[str:str]
+    navs: dict[str:str]
+
+    def __init__(
+        self,
+        name: str,
+        characters: dict[str:str],
+        backgrounds: dict[str:str],
+        navs: dict[str:str],
+    ):
+        self.name = name
+        self.characters = characters
+        self.backgrounds = backgrounds
+        self.navs = navs
+
+    @classmethod
+    def fromJSON(cls, jsonpath: str):
+        data: dict
+
+        with open_file(jsonpath, mode='r') as f:
+            data = load(f)
+
+        return cls(
+            data.get('name'),
+            data.get('characters'),
+            data.get('backgrounds'),
+            data.get('navs'),
+        )

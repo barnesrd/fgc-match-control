@@ -9,7 +9,6 @@ from data.globals import appdata
 if __name__ == '__main__':
     app: QApplication = QApplication([])
 
-    print(appdata.name)
     app.setApplicationName(appdata.name)
     app.setApplicationVersion(appdata.version)
 
@@ -18,7 +17,7 @@ if __name__ == '__main__':
     config = getConfig()
     profile = getProfile()
     game = getGame()
-    
+
     setVisualTheme(app, config.get('activeTheme'))
 
     main = MainWindow(profile, game, config)

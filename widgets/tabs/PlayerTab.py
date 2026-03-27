@@ -8,7 +8,8 @@ from PySide6.QtWidgets import (
 )
 from time import time
 
-from widgets.components import PlayerCell, CommCell, MatchCell, HorizLine
+from widgets.components import PlayerCell, CommCell, MatchCell
+from widgets.wrappers import HorizLine
 from widgets.system import StatusBar
 from util.fileOps import exportScoreJson
 
@@ -43,15 +44,11 @@ class PlayerTab(QWidget):
 
         self.p1 = PlayerCell(
             'Player 1:',
-            profile.get('players', {}),
-            theme.get('characters', {}),
             self.submit,
             self.editSaveToggle,
         )
         self.p2 = PlayerCell(
             'Player 2:',
-            profile.get('players', {}),
-            theme.get('characters', {}),
             self.submit,
             self.editSaveToggle,
         )
@@ -132,13 +129,16 @@ class PlayerTab(QWidget):
         self.setLayout(layout)
 
     def swapPlayers(self):
-        tempName = self.p1.name.text()
-        tempCharacter = self.p1.character.text()
-        tempCountry = self.p1.country.text()
+        tempName = self.p1.name
+        tempCharacter = self.p1.character
+        tempCountry = self.p1.country
 
         self.p1.setTextContents(
-            self.p2.name.text(), self.p2.character.text(), self.p2.country.text()
+            self.p2.name,
+            self.p2.character,
+            self.p2.country,
         )
+        
         self.p2.setTextContents(tempName, tempCharacter, tempCountry)
 
     def swapCommentators(self):
@@ -149,8 +149,8 @@ class PlayerTab(QWidget):
         self.c2.setTextContents(tempName, tempPlug)
 
     def resetScores(self) -> None:
-        self.p1.counter.reset()
-        self.p2.counter.reset()
+        self.p1.score_counter.reset()
+        self.p2.score_counter.reset()
 
     def clearPlayers(self, subcall: bool = False) -> None:
         self.p1.clear()
@@ -181,12 +181,12 @@ class PlayerTab(QWidget):
         exportScoreJson(
             {
                 'timestamp': int(time()),
-                'p1name': self.p1.getName(),
-                'p1char': self.p1.getCharacterCode(),
-                'p1ctry': self.p1.getCountryCode(),
-                'p2name': self.p2.getName(),
-                'p2char': self.p2.getCharacterCode(),
-                'p2ctry': self.p2.getCountryCode(),
+                'p1name': self.p1.name,
+                'p1char': self.p1.character,
+                'p1ctry': self.p1.country,
+                'p2name': self.p2.name,
+                'p2char': self.p2.character,
+                'p2ctry': self.p2.country,
                 'c1name': self.c1.name.text(),
                 'c1plug': self.c1.plug.text(),
                 'c1nav': self.c1.nav.currentText(),
@@ -195,8 +195,8 @@ class PlayerTab(QWidget):
                 'c2nav': self.c2.nav.currentText(),
                 'title': self.m.title.text(),
                 'background': self.m.backgroundSelect.currentText(),
-                'p1score': self.p1.getScore(),
-                'p2score': self.p2.getScore(),
+                'p1score': self.p1.score,
+                'p2score': self.p2.score,
             }
         )
         self.statusBar.showMessage('Saved Successfully!', 800)

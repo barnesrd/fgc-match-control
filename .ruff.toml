@@ -28,8 +28,8 @@ exclude = [
     "venv",
 ]
 
-# Same as Black.
-line-length = 88
+# Follow 80 line-length for dual code screen support
+line-length = 80
 indent-width = 4
 
 # Assume Python 3.10

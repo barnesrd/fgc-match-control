@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QPushButton, QWidget, QGridLayout, QCheckBox
 from PySide6.QtGui import QIntValidator
 
-from widgets.components.Entry import Entry
+from widgets.wrappers.Entry import Entry
 
 
 class IntCounter(QWidget):
@@ -24,12 +24,12 @@ class IntCounter(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        self.counter = Entry()
-        self.counter.setValidator(QIntValidator(minimum, maximum))
-        self.counter.setText(str(default))
-        self.counter.setFixedWidth(30)
-        self.counter.setOnFocusOut(self.trySubmit)
-        layout.addWidget(self.counter, 0, 0)
+        self.counter_entry = Entry()
+        self.counter_entry.setValidator(QIntValidator(minimum, maximum))
+        self.counter_entry.setText(str(default))
+        self.counter_entry.setFixedWidth(30)
+        self.counter_entry.setOnFocusOut(self.trySubmit)
+        layout.addWidget(self.counter_entry, 0, 0)
 
         minus = QPushButton('-')
         minus.clicked.connect(self.decrement)
@@ -44,16 +44,20 @@ class IntCounter(QWidget):
         self.setFixedWidth(60)
         self.setLayout(layout)
 
+    @property
+    def count(self) -> int:
+        return int(self.counter_entry.text())
+
     def reset(self) -> None:
-        self.counter.setText(str(self.default))
+        self.counter_entry.setText(str(self.default))
 
     def adjustCount(self):
-        num = int(self.counter.text())
+        num = int(self.counter_entry.text())
         if num < self.minimum:
-            self.counter.setText(str(self.minimum))
+            self.counter_entry.setText(str(self.minimum))
             return
         if num > self.maximum:
-            self.counter.setText(str(self.maximum))
+            self.counter_entry.setText(str(self.maximum))
             return
 
     def trySubmit(self) -> None:
@@ -63,13 +67,13 @@ class IntCounter(QWidget):
             self.submitFunc()
 
     def increment(self) -> None:
-        if int(self.counter.text()) >= self.maximum:
+        if int(self.counter_entry.text()) >= self.maximum:
             return
-        self.counter.setText(str(int(self.counter.text()) + 1))
+        self.counter_entry.setText(str(int(self.counter_entry.text()) + 1))
         self.trySubmit()
 
     def decrement(self) -> None:
-        if int(self.counter.text()) <= self.minimum:
+        if int(self.counter_entry.text()) <= self.minimum:
             return
-        self.counter.setText(str(int(self.counter.text()) - 1))
+        self.counter_entry.setText(str(int(self.counter_entry.text()) - 1))
         self.trySubmit()

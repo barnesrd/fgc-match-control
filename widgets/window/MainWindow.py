@@ -12,7 +12,9 @@ class MainWindow(QMainWindow):
 
         self.setMenuBar(Menubar(config))
 
-        gameProfile = givenprofile.get(config.get('activeGame'), profile['p4au'])
+        gameProfile = givenprofile.get(
+            config.get('activeGame'), profile['p4au']
+        )
 
         self.setStatusBar(
             StatusBar(config.get('activeGame'), config.get('activeProfile'))
@@ -21,7 +23,9 @@ class MainWindow(QMainWindow):
         tabber = QTabWidget()
         tabber.setTabPosition(QTabWidget.North)
 
-        tabber.addTab(PlayerTab(gameProfile, game, self.statusBar()), 'Scoreboard')
+        tabber.addTab(
+            PlayerTab(gameProfile, game, self.statusBar()), 'Scoreboard'
+        )
         tabber.addTab(CrewTab(gameProfile, game), 'Crew Battle')
 
         self.setCentralWidget(tabber)

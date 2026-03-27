@@ -10,4 +10,6 @@ class StatusBar(QStatusBar):
         settingLabel = QLabel(f'Theme: {theme} | Profile: {profile}')
         self.addPermanentWidget(settingLabel)
 
-        self.showMessage(f'FG Overlay Beta v.{appdata.version} written by Jolteo_', 5000)
+        self.showMessage(
+            f'FG Overlay Beta v.{appdata.version} written by Jolteo_', 5000
+        )

@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QFrame, QGridLayout, QVBoxLayout
 from PySide6.QtCore import Qt
 
-from widgets.components.Entry import Entry
+from widgets.wrappers import Entry
 from widgets.components.CrewPlayer import CrewPlayer
 
 
