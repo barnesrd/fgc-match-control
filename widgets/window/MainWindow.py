@@ -3,12 +3,12 @@ from widgets.tabs import PlayerTab, CrewTab
 
 from widgets.system import Menubar, StatusBar
 from data.fallbacks import profile
+from widgets.window.ConfirmDialog import ConfirmDialog
 
 
 class MainWindow(QMainWindow):
     def __init__(self, givenprofile: dict, game: dict, config: dict):
         super().__init__()
-        self.show()
 
         self.setMenuBar(Menubar(config))
 
@@ -29,3 +29,5 @@ class MainWindow(QMainWindow):
         tabber.addTab(CrewTab(gameProfile, game), 'Crew Battle')
 
         self.setCentralWidget(tabber)
+
+        self.show()

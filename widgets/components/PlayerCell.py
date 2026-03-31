@@ -1,7 +1,6 @@
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
 from widgets.wrappers import Entry, IntCounter
-from data.countries import countries
 
 
 class PlayerCell(QWidget):
@@ -12,19 +11,19 @@ class PlayerCell(QWidget):
         editSubmitToggle: QCheckBox,
     ):
         super().__init__()
-        
+
         self.submitFunc = submitFunc
         self.editSubmitToggle = editSubmitToggle
 
         layout = QGridLayout()
         layout.setContentsMargins(2, 2, 2, 2)
-        
+
         # Initial Label
         layout.addWidget(QLabel(label), 0, 0)
 
         # Name Entry
         self.name_entry = Entry('Name', [], 25)
-        #self.name_entry.setOnFocusOut(self.autofillPlayer)
+        # self.name_entry.setOnFocusOut(self.autofillPlayer)
         self.name_entry.setToolTip("Player's name")
         layout.addWidget(self.name_entry, 0, 1)
 
@@ -58,7 +57,7 @@ class PlayerCell(QWidget):
     @property
     def country(self) -> str:
         return self.country_entry.text()
-    
+
     @property
     def score(self) -> int:
         return self.score_counter.count
@@ -80,6 +79,8 @@ class PlayerCell(QWidget):
         self.character_entry.setText('')
         self.country_entry.setText('')
         self.score_counter.reset()
+
+
 """
     def autofillPlayer(self):
         player = self.players.get(self.name_entry.text())

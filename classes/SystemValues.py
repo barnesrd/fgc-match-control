@@ -1,6 +1,4 @@
 from classes.metaclasses import Singleton
-from classes.GameTheme import GameTheme
-from classes.Profile import Profile
 
 
 class SystemValues(metaclass=Singleton):
@@ -23,7 +21,7 @@ class SystemValues(metaclass=Singleton):
         'nord',
         'one_dark_two',
     }
-    
+
     _profile: dict
     _gameTheme: dict
 

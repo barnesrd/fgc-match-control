@@ -29,6 +29,13 @@ def create_file(filepath: str, content: str, replace: bool = True) -> None:
         f.write(content)
 
 
+def initializeFileStructure() -> tuple[str, str]:
+    profiles = True
+    
+    if not path.exists('./profiles'):
+        pass
+
+
 def createFileStructure() -> None:
     Path('./profiles').mkdir(parents=True, exist_ok=True)
     if not path.exists('./profiles/default.json'):

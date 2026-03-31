@@ -32,7 +32,7 @@ class CrewPlayer(QWidget):
     @property
     def character(self) -> str:
         return self.character_entry.text()
-    
+
     @property
     def lives(self) -> int:
         return self.lives_entry.count

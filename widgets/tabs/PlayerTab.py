@@ -138,7 +138,7 @@ class PlayerTab(QWidget):
             self.p2.character,
             self.p2.country,
         )
-        
+
         self.p2.setTextContents(tempName, tempCharacter, tempCountry)
 
     def swapCommentators(self):
