@@ -2,33 +2,35 @@ from PySide6.QtWidgets import QPushButton, QWidget, QGridLayout, QCheckBox
 from PySide6.QtGui import QIntValidator
 
 from .Entry import Entry
+from .DebouncedEntry import DebouncedEntry
+from classes import SubmitMode
+
 
 class IntCounter(QWidget):
     def __init__(
         self,
+        onSubmit: callable,
         minimum: int = 0,
         maximum: int = 999,
         default: int = 0,
-        submitFunc: callable = None,
-        editSaveToggle: QCheckBox = None,
+        submitMode: SubmitMode = SubmitMode.ON_EDIT,
     ):
         super().__init__()
         self.default = default
         self.minimum = minimum
         self.maximum = maximum
-        self.submitFunc = submitFunc if submitFunc is not None else lambda: None
-        self.editSaveToggle = editSaveToggle
+        self.onSubmit = onSubmit
+        self._submitMode = submitMode
 
         layout = QGridLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
-        self.counter_entry = Entry()
-        self.counter_entry.setValidator(QIntValidator(minimum, maximum))
-        self.counter_entry.setText(str(default))
-        self.counter_entry.setFixedWidth(30)
-        self.counter_entry.setOnFocusOut(self.trySubmit)
-        layout.addWidget(self.counter_entry, 0, 0)
+        self.counterEntry = DebouncedEntry(submitFunc)
+        self.counterEntry.setValidator(QIntValidator(minimum, maximum))
+        self.counterEntry.setText(str(default))
+        self.counterEntry.setFixedWidth(30)
+        layout.addWidget(self.counterEntry, 0, 0)
 
         minus = QPushButton('-')
         minus.clicked.connect(self.decrement)
@@ -44,35 +46,37 @@ class IntCounter(QWidget):
         self.setLayout(layout)
 
     @property
-    def count(self) -> int:
-        return int(self.counter_entry.text())
+    def value(self) -> int:
+        return int(self.counterEntry.text())
+
+    @property
+    def submitMode(self) -> SubmitMode:
+        return self._submitMode
+    
+    @submitMode.setter
+    def submitMode(self, value: SubmitMode) -> SubmitMode:
+        self._submitMode = value
 
     def reset(self) -> None:
-        self.counter_entry.setText(str(self.default))
+        self.counterEntry.setText(str(self.default))
 
     def adjustCount(self):
-        num = int(self.counter_entry.text())
+        num = int(self.counterEntry.text())
         if num < self.minimum:
-            self.counter_entry.setText(str(self.minimum))
+            self.counterEntry.setText(str(self.minimum))
             return
         if num > self.maximum:
-            self.counter_entry.setText(str(self.maximum))
+            self.counterEntry.setText(str(self.maximum))
             return
-
-    def trySubmit(self) -> None:
-        if self.editSaveToggle is None:
-            return
-        if self.editSaveToggle.isChecked():
-            self.submitFunc()
 
     def increment(self) -> None:
-        if int(self.counter_entry.text()) >= self.maximum:
+        if int(self.counterEntry.value) >= self.maximum:
             return
-        self.counter_entry.setText(str(int(self.counter_entry.text()) + 1))
+        self.counterEntry.setText(str(int(self.counterEntry.text()) + 1))
         self.trySubmit()
 
     def decrement(self) -> None:
-        if int(self.counter_entry.text()) <= self.minimum:
+        if int(self.counterEntry.text()) <= self.minimum:
             return
-        self.counter_entry.setText(str(int(self.counter_entry.text()) - 1))
+        self.counterEntry.setText(str(int(self.counterEntry.text()) - 1))
         self.trySubmit()

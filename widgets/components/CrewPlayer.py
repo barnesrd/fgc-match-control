@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QHBoxLayout
 
-from .Entry import Entry
-from .IntCounter import IntCounter
+from widgets.wrappers import Entry, IntCounter
+
 
 class CrewPlayer(QWidget):
     def __init__(self):
@@ -17,7 +17,7 @@ class CrewPlayer(QWidget):
         self.character_entry = Entry('Character')
         layout.addWidget(self.character_entry)
 
-        self.lives_entry = IntCounter(0, 2, 2)
+        self.lives_entry = IntCounter(lambda x: None, 0, 2, 2)
         self.lives_entry.setToolTip('Number of lives for this player')
         self.lives_entry.counter_entry.setFixedWidth(15)
         self.lives_entry.setFixedWidth(45)

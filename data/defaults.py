@@ -1,12 +1,5 @@
-directories = {
-    'profiles': '.json',
-    'games': '.json'
-}
+directories = {'profiles': '.json', 'games': '.json'}
 
-profile_structure = {
-    
-}
+profile_structure = {}
 
-game_structure = {
-    
-}
+game_structure = {}

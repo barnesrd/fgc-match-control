@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QCheckBox
 
-from .Entry import Entry
-from .ComboBox import ComboBox
+from widgets.wrappers import Entry, ComboBox
+
 
 class MatchCell(QWidget):
     def __init__(
@@ -26,9 +26,8 @@ class MatchCell(QWidget):
 
         layout.addWidget(QLabel('Background Image:'), 0, 1)
 
-        self.backgroundSelect = ComboBox()
+        self.backgroundSelect = ComboBox(self.trySubmit)
         self.backgroundSelect.addItems(backgrounds)
-        self.backgroundSelect.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.backgroundSelect, 0, 2)
 
         self.setLayout(layout)

@@ -22,4 +22,7 @@ if __name__ == '__main__':
 
     main = MainWindow(profile, game, config)
 
+    appdata.mainWindow = main
+    console.log(appdata.mainWindow)
+
     sys.exit(app.exec())

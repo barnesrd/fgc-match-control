@@ -25,6 +25,7 @@ class PlayerTab(QWidget):
 
         # Player Entry
         layout.addWidget(QLabel('<b><i>Player Data</i></b>'), 0, 0, 1, 2)
+        
 
         playerButtonLayout = QHBoxLayout()
 

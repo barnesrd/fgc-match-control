@@ -1,7 +1,11 @@
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
-from .Entry import Entry
-from .ComboBox import ComboBox
+from widgets.wrappers import Entry, ComboBox, DebouncedEntry
+
+
+def callback(value):
+    print(f'edit finished {value}')
+
 
 class CommCell(QWidget):
     def __init__(
@@ -24,20 +28,21 @@ class CommCell(QWidget):
         layout.addWidget(QLabel(label), 0, 0)
 
         # Name
-        self.name = Entry('Name', commentators.keys(), 25)
-        self.name.setOnFocusOut(self.autofillComms)
+        self.name = DebouncedEntry(
+            callback, 'Name', self.commentators.keys(), debounce=0.4
+        )
         layout.addWidget(self.name, 0, 1)
 
         # Plug / Handle
-        self.plug = Entry('Plug/Handle', [], 25)
-        self.plug.setOnFocusOut(self.trySubmit)
+        self.plug = DebouncedEntry(
+            callback, 'Plug/Handle', [], 25, debounce=0.4
+        )
         layout.addWidget(self.plug, 0, 2)
 
-        self.nav = ComboBox()
+        self.nav = ComboBox(self.trySubmit)
         self.nav.setToolTip(
             'Sets the navigator graphic to be used on the commentator overlay'
         )
-        self.nav.setOnFocusOut(self.trySubmit)
         self.configureNav(navigators)
         layout.addWidget(self.nav, 0, 3)
 

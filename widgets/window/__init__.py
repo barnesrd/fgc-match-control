@@ -1,2 +1,2 @@
-from widgets.window.MainWindow import MainWindow as MainWindow
-from widgets.window.ConfirmDialog import ConfirmDialog as ConfirmDialog
+from .MainWindow import MainWindow as MainWindow
+from .ConfirmDialog import ConfirmDialog as ConfirmDialog

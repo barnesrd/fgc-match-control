@@ -31,7 +31,7 @@ def create_file(filepath: str, content: str, replace: bool = True) -> None:
 
 def initializeFileStructure() -> tuple[str, str]:
     profiles = True
-    
+
     if not path.exists('./profiles'):
         pass
 

@@ -1,14 +1,22 @@
 from PySide6.QtWidgets import QComboBox
 
+from classes import SubmitMode
+
 
 class ComboBox(QComboBox):
-    def __init__(self):
+    def __init__(
+        self, onSubmit: callable, submitMode: SubmitMode = SubmitMode.ON_EDIT
+    ):
         super().__init__()
-        self.f = lambda: None
+        self.currentIndexChanged.connect(self._submit)
+        self._onSubmit = onSubmit
+        self.submitMode = submitMode
 
-    def setOnFocusOut(self, func: callable) -> None:
-        self.f = func
+    @property
+    def value(self) -> str:
+        return self.currentText
 
-    def focusOutEvent(self, e) -> None:
-        self.f()
-        super().focusOutEvent(e)
+    def _submit(self) -> None:
+        if self._submitMode != SubmitMode.ON_EDIT:
+            return
+        self._onSubmit()

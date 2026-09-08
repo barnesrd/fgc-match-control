@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QCheckBox
 
-from .Entry import Entry
+from widgets.wrappers import Entry, IntCounter, DebouncedEntry
 from data.countries import countries
-from .IntCounter import IntCounter
+
 
 class PlayerCell(QWidget):
     def __init__(
@@ -23,24 +23,23 @@ class PlayerCell(QWidget):
         layout.addWidget(QLabel(label), 0, 0)
 
         # Name Entry
-        self.name_entry = Entry('Name', [], 25)
-        # self.name_entry.setOnFocusOut(self.autofillPlayer)
+        self.name_entry = DebouncedEntry(self.trySubmit, 'Name', [], 25, 0.4)
         self.name_entry.setToolTip("Player's name")
         layout.addWidget(self.name_entry, 0, 1)
 
         # Character Entry
-        self.character_entry = Entry('Character', [], 2)
+        self.character_entry = DebouncedEntry(self.trySubmit, 'Character', [], 2)
         self.character_entry.setToolTip("Player's character")
-        self.character_entry.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.character_entry, 0, 2)
 
         # Country Entry
-        self.country_entry = Entry('Country', [], 2)
+        self.country_entry = DebouncedEntry(self.trySubmit, 'Country', [], 2)
         self.country_entry.setToolTip("Player's country")
-        self.country_entry.setOnFocusOut(self.trySubmit)
         layout.addWidget(self.country_entry, 0, 3)
 
-        self.score_counter = IntCounter(0, 99, 0, submitFunc, editSubmitToggle)
+        self.score_counter = IntCounter(
+            self.trySubmit, 0, 99, 0, submitFunc
+        )
         self.score_counter.setToolTip("Player's score (Affects scoreboard)")
         layout.addWidget(self.score_counter, 0, 4)
 

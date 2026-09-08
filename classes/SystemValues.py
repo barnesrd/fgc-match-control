@@ -1,3 +1,5 @@
+from PySide6.QtWidgets import QMainWindow
+
 from classes.metaclasses import Singleton
 
 
@@ -24,6 +26,7 @@ class SystemValues(metaclass=Singleton):
 
     _profile: dict
     _gameTheme: dict
+    _mainWindow: QMainWindow
 
     @property
     def name(self):
@@ -36,3 +39,7 @@ class SystemValues(metaclass=Singleton):
     @property
     def validVisualThemes(self):
         return self._validVisualThemes
+
+    @property
+    def mainWindow(self):
+        return self._mainWindow
