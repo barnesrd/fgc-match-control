@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QCheckBox
 
-from widgets.wrappers import Entry, ComboBox
-
+from .Entry import Entry
+from .ComboBox import ComboBox
 
 class MatchCell(QWidget):
     def __init__(

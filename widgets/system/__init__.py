@@ -1,2 +1,2 @@
-from widgets.system.Menubar import Menubar as Menubar
-from widgets.system.StatusBar import StatusBar as StatusBar
+from .Menubar import Menubar as Menubar
+from .StatusBar import StatusBar as StatusBar

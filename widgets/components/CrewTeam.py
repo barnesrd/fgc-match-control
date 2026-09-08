@@ -1,9 +1,8 @@
 from PySide6.QtWidgets import QWidget, QFrame, QGridLayout, QVBoxLayout
 from PySide6.QtCore import Qt
 
-from widgets.wrappers import Entry
-from widgets.components.CrewPlayer import CrewPlayer
-
+from .Entry import Entry
+from .CrewPlayer import CrewPlayer
 
 class CrewTeam(QWidget):
     def __init__(self, profile: dict, theme: dict):

@@ -1,8 +1,7 @@
 from PySide6.QtWidgets import QPushButton, QWidget, QGridLayout, QCheckBox
 from PySide6.QtGui import QIntValidator
 
-from widgets.wrappers.Entry import Entry
-
+from .Entry import Entry
 
 class IntCounter(QWidget):
     def __init__(

@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QHBoxLayout
 
-from widgets.wrappers import Entry, IntCounter
-
+from .Entry import Entry
+from .IntCounter import IntCounter
 
 class CrewPlayer(QWidget):
     def __init__(self):
