@@ -1,1 +1,0 @@
-from classes.metaclasses.Singleton import Singleton as Singleton
