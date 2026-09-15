@@ -25,7 +25,7 @@ class DbIntCounter(QWidget):
         layout.setSpacing(0)
         
         self._entry = DbEntry(on_submit)
-        self.counterEntry.setValidator(QIntValidator(minimum, maximum))
+        self._entry.setValidator(QIntValidator(minimum, maximum))
         self._entry.setText(str(self.default))
         self._entry.setFixedWidth(30)
         layout.addWidget(self._entry, 0, 0)
@@ -63,9 +63,20 @@ class DbIntCounter(QWidget):
     def increment(self) -> None:
         if int(self._entry.value) >= self._maximum:
             return
-        self.counterEntry.setText(str(int(self._entry.value) + 1))
+        self._entry.setText(str(int(self._entry.value) + 1))
 
     def decrement(self) -> None:
         if int(self._entry.value) <= self._minimum:
             return
-        self.counterEntry.setText(str(int(self._entry.value) - 1))
+        self._entry.setText(str(int(self._entry.value) - 1))
+    
+    @property
+    def default(self):
+        return self._default
+
+    @property
+    def value(self) -> int:
+        return int(self._entry.value)
+
+    def clear(self):
+        self._entry.setText(str(self._default))

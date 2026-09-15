@@ -13,7 +13,7 @@ class DbSelect(QComboBox):
     
     @property
     def value(self) -> str:
-        return self.currentText
+        return self.currentText()
 
     def _timeout(self):
         if AppController().profile.submit_mode != SubmitMode.ON_EDIT:
@@ -21,8 +21,11 @@ class DbSelect(QComboBox):
         if self._timer is not None:
             self._timer.cancel()
         self._timer = Timer(
-            AppController().profile.debounce,
+            AppController().profile.debounce / 2,
             self.on_submit,
             [self.value]
         )
         self._timer.start()
+
+    def clear(self):
+        self.setCurrentIndex(-1)

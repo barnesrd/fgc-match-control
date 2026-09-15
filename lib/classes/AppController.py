@@ -1,15 +1,16 @@
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QLineEdit, QComboBox
 import qt_themes
 
 from .metaclass import Singleton
 from .Game import Game
 from .Profile import Profile
+from lib.widget.component import DbEntry, DbSelect
 
 class AppController(metaclass=Singleton):
     _name: str = 'Match Control'
     _version: str = '0.6'
     
-    _valid_themes: set[str] = {
+    valid_themes: set[str] = {
         'blender',
         'atom_one',
         'catppuccin_frappe',
@@ -26,11 +27,14 @@ class AppController(metaclass=Singleton):
         'one_dark_two',
     }
     
-    _game: Game
+    _game_list: list[Game]
+    _selected_game: Game
     _profile: str = Profile()
     _theme: str
     
     _window: QMainWindow
+    _character_listeners: set[QLineEdit|QComboBox] = {}
+    _nav_listeners: set[QComboBox] = {}
     
     @property
     def name(self):
@@ -47,20 +51,23 @@ class AppController(metaclass=Singleton):
     @theme.setter
     def theme(self, theme: str):
         if theme in self._valid_themes:
-            qt_themes.setTheme(theme)
             self._theme = theme
         else:
             print('Invalid theme! Falling back to default theme.')
-            qt_themes.set_theme('blender')
             self._theme = 'blender'
-            
+        qt_themes.set_theme(self._theme)
+
     @property
     def game(self):
         return self._game
     
     @game.setter
-    def game(self, filepath: str):
-        self._game = Game(filepath)
+    def game(self, game: Game):
+        self._selected_game = game
+        for listener in self._character_listeners:
+            if isinstance(listener, QLineEdit):
+                listener.clear()
+
         
     @property
     def profile(self):
@@ -69,3 +76,9 @@ class AppController(metaclass=Singleton):
     @profile.setter
     def profile(self, filepath: str):
         self._profile = Profile(filepath)
+
+    def add_character_listener(self, listener: QLineEdit):
+        self._character_listeners.add(listener)
+    
+    def remove_character_listener(self, listener: QLineEdit):
+        self._character_listeners.discard(listener)
