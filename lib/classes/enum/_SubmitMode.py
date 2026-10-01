@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SubmitMode(Enum):
-    ON_SUBMIT = 1
-    ON_EDIT = 2
+    ON_EDIT = 1
+    ON_SUBMIT = 2

@@ -11,5 +11,6 @@ class StatusBar(QStatusBar):
         self.addPermanentWidget(self.message)
 
         self.showMessage(
-            f'FG Overlay Beta v.{AppController.version} written by Jolteo_', 5000
+            f'FG Overlay Beta v.{AppController.version} written by Jolteo_',
+            5000,
         )

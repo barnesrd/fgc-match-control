@@ -18,26 +18,28 @@ class ScoreMatch(QWidget):
         self._title.setPlaceholderText('Match Title')
         layout.addWidget(self._title, 0, 0)
 
-        self._background = DbSelect(lambda data: self.update('background', data))
+        self._background = DbSelect(
+            lambda data: self.update('background', data)
+        )
         self._background.setPlaceholderText('Background')
         layout.addWidget(self._background, 0, 1)
 
         self._data = {
             'title': self._title.value,
-            'background': self._background.value
+            'background': self._background.value,
         }
 
         self.setLayout(layout)
 
-    def update(self, key: str, value: str|int):
+    def update(self, key: str, value: str | int):
         if self._data.get(key) is None:
             return
         self._data[key] = value
         self.on_submit(self._data)
 
     def clear(self):
-        self._title.clear()
-        self._background.clear()
+        self._title.reset()
+        self._background.reset()
 
     @property
     def data(self):

@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QMainWindow, QTabWidget
 from lib.widget.component import MenuBar, StatusBar
 from .tabs import ScoreTab
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()

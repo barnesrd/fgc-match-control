@@ -1,1 +1,1 @@
-from .SubmitMode import SubmitMode as SubmitMode
+from ._SubmitMode import SubmitMode as SubmitMode

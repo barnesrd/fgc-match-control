@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QMenu
 
+
 class File(QMenu):
     def __init__(self):
         super().__init__('File')

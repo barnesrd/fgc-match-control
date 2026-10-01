@@ -1,2 +1,2 @@
-from .AppController import AppController as AppController
-from .Game import Game as Game
+from ._AppController import AppController as AppController
+from ._Game import Game as Game

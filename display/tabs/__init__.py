@@ -1,1 +1,1 @@
-from .ScoreTab import ScoreTab as ScoreTab
+from ._ScoreTab import ScoreTab as ScoreTab
