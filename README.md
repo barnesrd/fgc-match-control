@@ -55,6 +55,8 @@ You can either download compiled executables from this project's releases direct
 
 Navigate to the [Releases](https://github.com/barnesrd/fgc-match-control/releases) section of this repository and download the latest executable for your operating system.
 
+This project is currently a work in progress, no releases have been made.
+
 
 ### Prerequisites
 
@@ -64,6 +66,10 @@ If you want to clone this repository onto your machine, you will need the follow
 That's it!
 
 ### Installation
+
+<b>For general use</b>: see [Releases](https://github.com/barnesrd/fgc-match-control/releases)
+
+<b>For local installation</b>:
 
 1. Clone the repo
    ```sh
@@ -88,11 +94,8 @@ That's it!
    ```sh
    pip install -r requirements.txt
    ```
-4. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github-username/repository-name
-   git remote -v # confirm the changes
-   ```
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -137,7 +140,7 @@ python main.py
 
 Any contributions or suggestions are greatly appreciated! If you have a suggestion that would improve this project, please fork the repo and create a pull request. You can also open an issue with the tag "enhancement". 
 
-It is reccommended that any pushes follow code style guidelines enforced by [Ruff].
+It is recommended that any pushes follow code style guidelines enforced by Ruff.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AdditionalFeature`)

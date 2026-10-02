@@ -5,12 +5,14 @@ from PySide6.QtWidgets import (
     QCheckBox,
     QHBoxLayout,
 )
+import logging
 
 from lib.widget.component import DbEntry, DbSelect, DbEntrySelect
 
 
 class ScoreComm(QWidget):
     def __init__(self, label: str, on_submit: callable):
+        logging.debug(f'Setting up Commentator cell with label: "{label}"')
         super().__init__()
 
         self.on_submit = on_submit
@@ -25,16 +27,19 @@ class ScoreComm(QWidget):
         layout.addWidget(label_widget)
 
         # Name
+        logging.debug('Creating name input box...')
         self._name = DbEntry(lambda data: self.update('name', data))
         self._name.setPlaceholderText('Name')
         layout.addWidget(self._name)
 
+        logging.debug('Creating handle input box...')
         self._plug = DbEntry(lambda data: self.update('plug', data))
         self._plug.setPlaceholderText('Handle')
         layout.addWidget(self._plug)
 
+        logging.debug('Creating navigator input dropdown...')
         self._nav = DbEntrySelect(lambda data: self._update('nav', data))
-        self._nav.setPlaceholderText('Nav')
+        self._nav.setPlaceholderText('Navigator')
         layout.addWidget(self._nav)
 
         self.setLayout(layout)

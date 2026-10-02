@@ -36,7 +36,7 @@ class Profile:
     _default = {
         'name': 'Invalid Profile',
         'submit_mode': 1,
-        'debounce': 0.5,
+        'debounce': 0.7,
         'theme': 'blender',
         'complete_mode': 'popup_completion',
     }
@@ -92,5 +92,14 @@ class Profile:
                 case _:
                     setattr(self, key, data.get(key, Profile._default[key]))
 
-    def set_theme(self, theme: str):
-        qt_themes.set_theme(theme)
+    @property
+    def theme(self):
+        return self._theme
+
+    @theme.setter
+    def theme(self, theme: str):
+        self._theme = theme
+        if theme not in valid_themes:
+            logging.error(f'Invalid theme provided: {theme}. Reverting to default theme: {Profile._default['theme']}')
+            self._theme = Profile._default['theme']
+        qt_themes.set_theme(self._theme)

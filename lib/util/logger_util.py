@@ -4,7 +4,7 @@ from pathlib import Path
 import logging
 
 
-def setup_logger(debug: bool, logpath: str | None = None):
+def setup_logger(debug: bool, logpath: str | None = None, logtag: str = ''):
     file_log_format = '%(asctime)s | %(levelname)-8s | %(filename)-21s:%(lineno)-3s:%(funcName)-16s | %(message)s'
     console_log_format = '%(message)s'
 
@@ -21,7 +21,7 @@ def setup_logger(debug: bool, logpath: str | None = None):
     }
 
     if logpath is not None:
-        if Path().parent.exists():
+        if Path(logpath).parent.exists():
             config['format'] = logging.Formatter(file_log_format)
             fh = logging.FileHandler(logpath)
             fh.setFormatter(logging.Formatter(file_log_format))

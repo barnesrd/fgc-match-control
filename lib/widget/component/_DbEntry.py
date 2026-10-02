@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QLineEdit, QCompleter
 from PySide6.QtCore import Qt
 from threading import Timer
 
-from lib.classes import AppController
 from lib.classes.enum import SubmitMode
 from data.globals import CONTROLLER
 
@@ -36,7 +35,7 @@ class DbEntry(QLineEdit):
     @autocomplete_list.setter
     def autocomplete_list(self, items: list[str]):
         completer = QCompleter(items)
-        completer.setCompletionMode(AppController().profile.complete_mode)
+        completer.setCompletionMode(CONTROLLER.profile.complete_mode)
         completer.setFilterMode(Qt.MatchFlag.MatchContains)
         completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         min_characters = max(

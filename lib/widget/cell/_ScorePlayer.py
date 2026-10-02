@@ -1,12 +1,14 @@
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QGridLayout, QLabel
+import logging
 
 from lib.widget.component import DbEntry, DbIntCounter, DbEntrySelect
 from lib.classes import AppController
-from data.globals import CONTROLLER
+from data.globals import CONTROLLER, COUNTRIES
 
 
 class ScorePlayer(QWidget):
     def __init__(self, label: str, on_submit: callable):
+        logging.debug(f'Setting up scoreboard Player cell with label: "{label}"')
         super().__init__()
 
         self.on_submit = on_submit
@@ -22,32 +24,40 @@ class ScorePlayer(QWidget):
         layout.addWidget(label_widget)
 
         # Name Entry
+        logging.debug('Creating name input box...')
         self._name = DbEntry(lambda data: self.update('name', data))
         self._name.setPlaceholderText('Name')
         layout.addWidget(self._name)
 
         # Character Entry
+        logging.debug('Creating character input dropdown...')
         self._character = DbEntrySelect(
             lambda data: self.update('character', data)
         )
         self._character.setPlaceholderText('Character')
         layout.addWidget(self._character)
+        logging.debug('Adding character input to character listeners...')
         CONTROLLER.add_character_listener(self._character)
 
         # Country Entry
-        self._country = DbEntry(lambda data: self.update('country', data))
+        logging.debug('Creating country input dropdown...')
+        self._country = DbEntrySelect(lambda data: self.update('country', data))
         self._country.setPlaceholderText('Country')
+        logging.debug(f'Registering {len(COUNTRIES)} countries to country dropdown...')
+        self._country.items = COUNTRIES
         layout.addWidget(self._country)
 
         # Score Entry
+        logging.debug('Creating score entry...')
         self._score = DbIntCounter(
             lambda data: self.update('score', data), 0, 999
         )
         layout.addWidget(self._score)
-
+        
         self.setLayout(layout)
 
         self._data = self.data
+        logging.debug('Player cell successfully loaded!')
 
     @property
     def data(self):

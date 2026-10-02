@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QMenu
+from PySide6.QtWidgets import QMenu, QWidget
+from display.popups import Preferences
 
 
 class File(QMenu):
@@ -9,4 +10,5 @@ class File(QMenu):
         self.addAction('Settings')
 
     def preferencesAction(self) -> None:
-        pass
+        self.p = Preferences()
+        self.p.show()

@@ -1,7 +1,6 @@
 from PySide6.QtWidgets import QComboBox
-
 from threading import Timer
-from lib.classes import AppController
+
 from lib.classes.enum import SubmitMode
 from data.globals import CONTROLLER
 

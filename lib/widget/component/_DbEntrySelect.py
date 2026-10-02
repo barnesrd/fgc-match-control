@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QCompleter
 from PySide6.QtCore import Qt
 
-from lib.classes import AppController
+from data.globals import CONTROLLER
 from ._DbSelect import DbSelect
 
 
@@ -38,7 +38,7 @@ class DbEntrySelect(DbSelect):
         for key in item_list:
             self.addItem(key, items[key])
         completer = QCompleter(item_list)
-        completer.setCompletionMode(AppController().profile.complete_mode)
+        completer.setCompletionMode(CONTROLLER.profile.complete_mode)
         completer.setFilterMode(Qt.MatchFlag.MatchContains)
         completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         min_characters = max(
@@ -51,4 +51,18 @@ class DbEntrySelect(DbSelect):
             + self._width_padding
         )
         self.setCompleter(completer)
+        self.reset()
+
+    @items.deleter
+    def items(self):
+        self._items = {}
+        self.clear()
+        self.setCompleter(None)
+        min_characters = max(
+            len(self.placeholderText()), self._min_view_characters
+        )
+        self.setMinimumWidth(
+            min_characters * self.fontMetrics().averageCharWidth()
+            + self._width_padding
+        )
         self.reset()

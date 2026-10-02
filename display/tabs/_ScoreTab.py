@@ -21,7 +21,7 @@ class ScoreTab(QWidget):
         super().__init__()
 
         layout = QGridLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setContentsMargins(2, 2, 2, 2)
         layout.verticalSizeConstraint()
 
         # Player Entry
@@ -120,11 +120,12 @@ class ScoreTab(QWidget):
                 {'title': data['title'], 'background': data['background']}
             )
         )
-        layout.addWidget(self.match, 9, 2, 1, 2)
 
         matchClear = QPushButton('Clear')
         matchClear.clicked.connect(self.match.clear)
+        
         layout.addWidget(matchClear, 8, 3, 1, 1)
+        layout.addWidget(self.match, 9, 2, 1, 2)
 
         # Separator
         layout.addWidget(HorizLine(), 10, 0, 1, 4)
@@ -150,6 +151,7 @@ class ScoreTab(QWidget):
         m_data = self.match.data
 
         self._data = {
+            'timestamp': int(time()),
             'p1name': p1_data['name'],
             'p1char': p1_data['character'],
             'p1ctry': p1_data['country'],
@@ -181,6 +183,7 @@ class ScoreTab(QWidget):
         self.start_timeout()
 
     def submit(self):
+        self._data['timestamp'] = int(time())
         logging.debug(f'Data submitted from Score tab: {self._data}')
 
     def clear_commentators(self):

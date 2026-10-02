@@ -9,8 +9,8 @@ class Game:
     }
     _optional = {'navigators': dict}
     _default = {
-        'game_id': 'inv',
-        'name': 'Invalid Game',
+        'game_id': 'defoinv',
+        'name': 'Default Game (Or Invalid)',
         'characters': {},
         'navigators': {},
     }
@@ -28,7 +28,7 @@ class Game:
                 data[key], Game._required[key]
             ):
                 logging.error(
-                    f'Game validation error: Missing required key or invalid type - {key} with value {data.get(key)}. '
+                    f'Game validation error: Missing required key or invalid type - "{key}" with value "{data.get(key)}". '
                     f'Expected type {Game._required[key].__name__}, got type {type(data.get(key)).__name__}'
                 )
                 return False
@@ -37,7 +37,7 @@ class Game:
                 data.get(key), Game._optional[key]
             ):
                 logging.warning(
-                    f'Game validation error: Optional key present with invalid type - {key} with value {data.get(key)}. '
+                    f'Game validation error: Optional key present with invalid type - "{key}" with value "{data.get(key)}". '
                     f'Expected type {Game._optional[key].__name__}, got type {type(data.get(key)).__name__}'
                 )
                 return False
@@ -45,9 +45,8 @@ class Game:
 
     def _digest_dict(self, data: dict):
         for key in Game._required.keys():
+            logging.debug(f'Required Game attribute "{key}" being set to "{data.get(key, Game._default[key])}".')
             setattr(self, key, data.get(key, Game._default[key]))
         for key in Game._optional.keys():
+            logging.debug(f'Optional Game attribute "{key}" being set to "{data.get(key, Game._default[key])}".')
             setattr(self, key, data.get(key, Game._default[key]))
-
-    def get_character_names(self) -> list[str]:
-        return self.characters.keys()

@@ -4,13 +4,12 @@ import logging
 
 from display import MainWindow
 from data.globals import CONTROLLER
-from lib.classes import Game
 from lib.util.logger_util import setup_logger
 
 if __name__ == '__main__':
     app: QApplication = QApplication([])
 
-    setup_logger(False)
+    setup_logger(CONTROLLER.args.get('debug', False), CONTROLLER.args.get('logpath', None), CONTROLLER.args.get('logtag', ''))
     logging.info('Logger has been successfully configured')
     logging.debug('Debug mode has been enabled')
 
@@ -22,7 +21,6 @@ if __name__ == '__main__':
     CONTROLLER.profile = {'name': 'default'}
 
     main = MainWindow()
-
-    CONTROLLER._window = main
+    main.setWindowTitle('FGC Match Control')
 
     sys.exit(app.exec())
